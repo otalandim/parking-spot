@@ -3,20 +3,17 @@ package com.api.parkingspot.controllers;
 import com.api.parkingspot.dtos.ParkingSpotDto;
 import com.api.parkingspot.entities.ParkingSpot;
 import com.api.parkingspot.services.ParkingSpotService;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -42,5 +39,10 @@ public class ParkingSpotController {
         BeanUtils.copyProperties(dto, entity);
         entity.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(entity));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ParkingSpot>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 }
