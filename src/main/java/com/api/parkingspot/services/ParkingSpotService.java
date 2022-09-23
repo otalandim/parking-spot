@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ParkingSpotService {
@@ -36,5 +38,8 @@ public class ParkingSpotService {
         return repository.findAll();
     }
 
+    public Optional<ParkingSpot> findById(UUID id) {
+        return repository.findById(id);
+    }
 
 }
